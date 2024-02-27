@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import { Card } from 'antd';
+import { FloatButton } from 'antd';
+
+import ProductItems from '@/containers/ProductItems/ProductItems';
 
 import PaginationComponent from '@/component/pagination/pagination';
+import CardBox from '@/component/card/CardBox';
 
-import { aaluTikki, chickenMomos, logo2 } from '@/utils/image';
-import Navhead from '@/containers/Header/Header';
+import { aaluTikki, chickenMomos } from '@/utils/image';
+import FilterMenu from '@/containers/Modal/FilterMenu';
 
-const TAG = "Product Page :";
-
+const TAG = "Product Page: ";
 const Product = () => {
 
   const [defaultCurrent, setDefaultCurrent] = useState<number>(1);
   const [defaultPageSize, setDefaultPageSize] = useState<number>(10);
+  const [filterOpen, setfilterOpen] = useState<boolean>(false);
 
   const [product, setProduct] = useState([
     {
@@ -106,56 +109,48 @@ const Product = () => {
   };
 
   return (
-    <>
-      <div>
-        <div className='text-center m-0 bg-danger pt-2'>
-          <span className='fs-3 fw-bold text-light'>Table Thread</span>
-          <p className='fs-6 m-0 py-2 text-secondary'>Powered by TechCo</p>
-        </div>
-        <Navhead />
-        <div className='col-12'>
-          <Card className='my-4 box-shadow'>
-            <div className='d-flex justify-content-between align items-center mb-4'>
-              <div className='fw-bold fs-4 ' >Products</div>
-            </div >
+    <div>
+      <div className='text-center m-0 bg-red pt-2'>
+        <span className='fs-30 fw-bold tc-w'>Table Thread</span>
+        <p className='fs-6 m-0 py-2 tc-l-dark'>Powered by TechCo</p>
+      </div>
+      <div className='px-5 col-12'>
+        <div className='bdr-w-1 br-6 br-solid brc-gray my-4 mx-1 px-3 box-shadow'>
+          <div className='d-flex justify-content-between align items-center mb-4'>
+            <div className='fw-bold fs-24 my-2'>Products</div>
+          </div >
 
-            <div className='row border-top gy-4 py-3'>
+          <div className='row border-top gy-4 py-3'>
 
-              {product.map((item, index) => {
-                return (
-                  <div className='col-lg-3 col-md-4 col-sm-12'>
-                    <Card className='py-3' hoverable bodyStyle={{ padding: 0 }}>
-                      <img style={{ height: 200, width: '100%', objectFit: 'cover' }} alt="example" src={item.image} />
-                      <div className='px-3'>
-                        <h5 className='m-0 mt-2'>{item.productName}</h5>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic modi non facere earum.</p>
-                        <div className='d-flex justify-content-between'>
-                          <div>
-                            <p className='m-0'><span className='fw-bold'>Categery: </span> {item.category}</p>
-                            <p className='m-0'><span className='fw-bold'>Type: </span> {item.productType}</p>
-                            <p className='m-0'><span className='fw-bold'>Amount: </span> {item.amount}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
-                  </div>
-                )
-              })}
+            {product.map((item, index) => {
+              return (
+                <div className='col-lg-3 col-md-4 col-sm-12' key={index}>
+                  <ProductItems item={item} />
+                </div>
+              )
+            })}
 
-              <PaginationComponent
-                total={product.length}
-                defaultCurrent={defaultCurrent}
-                defaultPageSize={defaultPageSize}
-                onChange={callPaginationAction}
-                onShowSizeChange={callPaginationAction}
-              />;
+            <PaginationComponent
+              total={product.length}
+              defaultCurrent={defaultCurrent}
+              defaultPageSize={defaultPageSize}
+              onChange={callPaginationAction}
+              onShowSizeChange={callPaginationAction}
+            />
+            <div className='col-2'>
+              <FloatButton 
+                onClick={() => setfilterOpen(true)} 
+                // description='filter'
+                type='primary'
+                
+              />
             </div>
-          </Card >
-        </div >
-
+          </div>
+        </ div>
       </div >
-    </>
-  )
+      <FilterMenu filterOpen={filterOpen} setfilterOpen={setfilterOpen}></FilterMenu>
+    </div>
+  );
 }
 
 export default Product;

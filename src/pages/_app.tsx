@@ -1,5 +1,5 @@
 import type { AppProps } from 'next/app';
-import '@/styles/globle.scss';
+import '@/styles/main.scss';
 // import '@/styles/main.scss';
 
 
