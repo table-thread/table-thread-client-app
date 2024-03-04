@@ -114,7 +114,95 @@ const Product = () => {
   
   useEffect(() => {
     const dataFromLocalStorage = localStorage.getItem("productData");
-
+    
+    const dummyData = [
+      {
+        "productName": "veg tikki",
+        "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
+        "productType": "veg",
+        "category": "fast food",
+        "amount": 96,
+        "image": "/assets/images/productImages/aaluTikki.jpeg",
+        "productVarient": [
+          {
+            "varient": "small tikki",
+            "Price": "35"
+          },
+          {
+            "varient": "medium tikki",
+            "Price": "45"
+          },
+          {
+            "varient": "larze tikki",
+            "Price": "60"
+          }
+        ]
+      },
+      {
+        "productName": "tikki",
+        "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
+        "productType": "veg",
+        "category": "dirnk",
+        "amount": 96,
+        "image": "/assets/images/productImages/aaluTikki.jpeg",
+        "productVarient": [
+          {
+            "varient": "aalu tikki",
+            "Price": "40"
+          }
+        ]
+      },
+      {
+        "productName": "momos",
+        "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
+        "productType": "veg",
+        "category": "lunch",
+        "amount": 70,
+        "image": "/assets/images/productImages/aaluTikki.jpeg",
+        "productVarient": [
+          {
+            "varient": "momos",
+            "Price": "60"
+          }
+        ]
+      },
+      {
+        "productName": "roll",
+        "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
+        "productType": "veg",
+        "category": "breakfast",
+        "amount": 85,
+        "image": "/assets/images/productImages/aaluTikki.jpeg",
+        "productVarient": [
+          {
+            "varient": "egg roll",
+            "Price": "85"
+          }
+        ]
+      },
+      {
+        "productName": "biryani",
+        "productDiscription": " biryani is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
+        "productType": "veg",
+        "category": "dinner",
+        "amount": 96,
+        "image": "/assets/images/productImages/aaluTikki.jpeg",
+        "productVarient": [
+          {
+            "varient": "250 g",
+            "Price": "85"
+          },
+          {
+            "varient": "500 g",
+            "Price": "145"
+          },
+          {
+            "varient": "1 kg",
+            "Price": "185"
+          }
+        ]
+      },
+    ]
 
     if (dataFromLocalStorage !== null) {
       const parseData = JSON.parse(dataFromLocalStorage);
