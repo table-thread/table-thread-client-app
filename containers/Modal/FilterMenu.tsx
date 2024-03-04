@@ -18,12 +18,12 @@ const FilterMenu = (props: any) => {
 
   const handleOk = () => {
     if (catogory !== null) {
-      const filterProduct = dummyData.filter((item: any) => item.category == catogory)
+      const filterProduct = product.filter((item: any) => item.category == catogory)
       console.log(TAG, 'FILTER CATEGORY ', filterProduct);
       setProduct(filterProduct)
       setfilterOpen(false);
     } else {
-      setProduct(dummyData)
+      setProduct(product)
       setfilterOpen(false);
     }
   };
@@ -39,7 +39,7 @@ const FilterMenu = (props: any) => {
         value={catogory}
         setValue={setCatogory}
       />
-      {dummyData.map((item: any, index: number) => {
+      {product.map((item: any, index: number) => {
         return (
           <div className='' key={index}>
             <InputRadio
