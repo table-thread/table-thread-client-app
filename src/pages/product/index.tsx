@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { FloatButton } from 'antd';
 
 import ProductItems from '@/containers/ProductItems/ProductItems';
+import FilterMenu from '@/containers/Modal/FilterMenu';
 
 import PaginationComponent from '@/component/pagination/pagination';
-import CardBox from '@/component/card/CardBox';
 
-import { aaluTikki, chickenMomos } from '@/utils/image';
-import FilterMenu from '@/containers/Modal/FilterMenu';
+import { ICGiNotebook } from '@/utils/icons';
 
 const TAG = "Product Page: ";
 const Product = () => {
@@ -15,98 +15,126 @@ const Product = () => {
   const [defaultCurrent, setDefaultCurrent] = useState<number>(1);
   const [defaultPageSize, setDefaultPageSize] = useState<number>(10);
   const [filterOpen, setfilterOpen] = useState<boolean>(false);
-
-  const [product, setProduct] = useState([
-    {
-      productName: 'Chiken Tikka',
-      productType: 'Non-veg',
-      category: 'Starter',
-      amount: '80 Rs',
-      image: aaluTikki
-    },
-    {
-      productName: 'Chiken Tikka',
-      productType: 'Non-veg',
-      category: 'Starter',
-      amount: '80 Rs',
-      image: aaluTikki
-    },
-    {
-      productName: 'Momos',
-      productType: 'veg',
-      category: 'Fast-food',
-      amount: '60 Rs',
-      image: chickenMomos
-    },
-    {
-      productName: 'Chicken Momos',
-      productType: 'Non-veg',
-      category: 'Fast-food',
-      amount: '85 Rs',
-      image: chickenMomos
-    },
-    {
-      productName: 'Chiken role',
-      productType: 'Non-veg',
-      category: 'Fast-food',
-      amount: '120 Rs',
-      image: chickenMomos
-    },
-    {
-      productName: 'Panner Tikka',
-      productType: 'veg',
-      category: 'Starter',
-      amount: '70 Rs',
-      image: aaluTikki
-    },
-    {
-      productName: 'Chiken Tikka',
-      productType: 'Non-veg',
-      category: 'Starter',
-      amount: '80 Rs',
-      image: aaluTikki
-    },
-    {
-      productName: 'Chiken role',
-      productType: 'Non-veg',
-      category: 'Fast-food',
-      amount: '120 Rs',
-      image: chickenMomos
-    },
-    {
-      productName: 'Panner Tikka',
-      productType: 'veg',
-      category: 'Starter',
-      amount: '70 Rs',
-      image: aaluTikki
-    },
-    {
-      productName: 'Chiken Tikka',
-      productType: 'Non-veg',
-      category: 'Starter',
-      amount: '80 Rs',
-      image: aaluTikki
-    },
-    {
-      productName: 'Chiken Tikka',
-      productType: 'Non-veg',
-      category: 'Starter',
-      amount: '80 Rs',
-      image: aaluTikki
-    },
-    {
-      productName: 'Momos',
-      productType: 'veg',
-      category: 'Fast-food',
-      amount: '60 Rs',
-      image: chickenMomos
-    },
-  ]);
+  const [viewCart, setViewCart] = useState<any>([]);
+  const [product, setProduct] = useState<any>([]);
 
   const callPaginationAction = (page: number, limit: number) => {
     setDefaultCurrent(page);
     setDefaultPageSize(limit);
   };
+
+  const dummyData = [
+    {
+      "productName": "veg tikki",
+      "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
+      "productType": "veg",
+      "category": "fast food",
+      "amount": 96,
+      "image": "/assets/images/productImages/aaluTikki.jpeg",
+      "productVarient": [
+        {
+          "varient": "small tikki",
+          "Price": "35"
+        },
+        {
+          "varient": "medium tikki",
+          "Price": "45"
+        },
+        {
+          "varient": "larze tikki",
+          "Price": "60"
+        }
+      ]
+    },
+    {
+      "productName": "tikki",
+      "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
+      "productType": "veg",
+      "category": "dirnk",
+      "amount": 96,
+      "image": "/assets/images/productImages/aaluTikki.jpeg",
+      "productVarient": [
+        {
+          "varient": "aalu tikki",
+          "Price": "40"
+        }
+      ]
+    },
+    {
+      "productName": "momos",
+      "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
+      "productType": "veg",
+      "category": "lunch",
+      "amount": 70,
+      "image": "/assets/images/productImages/aaluTikki.jpeg",
+      "productVarient": [
+        {
+          "varient": "momos",
+          "Price": "60"
+        }
+      ]
+    },
+    {
+      "productName": "roll",
+      "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
+      "productType": "veg",
+      "category": "breakfast",
+      "amount": 85,
+      "image": "/assets/images/productImages/aaluTikki.jpeg",
+      "productVarient": [
+        {
+          "varient": "egg roll",
+          "Price": "85"
+        }
+      ]
+    },
+    {
+      "productName": "biryani",
+      "productDiscription": " biryani is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
+      "productType": "veg",
+      "category": "dinner",
+      "amount": 96,
+      "image": "/assets/images/productImages/aaluTikki.jpeg",
+      "productVarient": [
+        {
+          "varient": "250 g",
+          "Price": "85"
+        },
+        {
+          "varient": "500 g",
+          "Price": "145"
+        },
+        {
+          "varient": "1 kg",
+          "Price": "185"
+        }
+      ]
+    },
+  ]
+  
+  useEffect(() => {
+    const dataFromLocalStorage = localStorage.getItem("productData");
+
+
+    if (dataFromLocalStorage !== null) {
+      const parseData = JSON.parse(dataFromLocalStorage);
+      setProduct(dummyData);
+    }
+
+    // const cartdata = localStorage.getItem("cartData");
+    // if (cartdata !== null) {
+    //   const parseData = JSON.parse(cartdata)
+    //   // setViewCart(parseData);
+    // }
+
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem("cartData", JSON.stringify(viewCart));
+    // console.log(viewCart);
+  }, [viewCart]);
+
+  console.log(TAG + " product list ", product);
 
   return (
     <div>
@@ -122,10 +150,15 @@ const Product = () => {
 
           <div className='row border-top gy-4 py-3'>
 
-            {product.map((item, index) => {
+            {product.map((item: any, index: number) => {
               return (
                 <div className='col-lg-3 col-md-4 col-sm-12' key={index}>
-                  <ProductItems item={item} />
+                  <ProductItems
+                    item={item}
+                    idx={`uuid${index}`}
+                    viewCart={viewCart}
+                    setViewCart={setViewCart}
+                  />
                 </div>
               )
             })}
@@ -138,17 +171,32 @@ const Product = () => {
               onShowSizeChange={callPaginationAction}
             />
             <div className='col-2'>
-              <FloatButton 
-                onClick={() => setfilterOpen(true)} 
+              <FloatButton
+                onClick={() => setfilterOpen(true)}
                 // description='filter'
                 type='primary'
-                
               />
+            </div>
+            <div className='d-flex justify-content-center'>
+              <Link
+                className={`col-4 br-6 p-2 bg-red p-fixed p-b-50 text-center ${viewCart.length !== 0 ? '' : 'd-none'}`}
+                href='/viewCart'
+              >
+                View Cart <ICGiNotebook />
+              </Link>
             </div>
           </div>
         </ div>
       </div >
-      <FilterMenu filterOpen={filterOpen} setfilterOpen={setfilterOpen}></FilterMenu>
+      <FilterMenu
+        filterOpen={filterOpen}
+        setfilterOpen={setfilterOpen}
+        product={product}
+        setProduct={setProduct}
+        dummyData={dummyData}
+      >
+
+      </FilterMenu>
     </div>
   );
 }

@@ -1,29 +1,91 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import AddItem from '../Modal/AddItem';
+
 import Quantity from '@/component/quantity/Quantity';
-import CardBox from '@/component/card/CardBox';
 
-
+const TAG = "Product Item Page: ";
 const ProductItems = (props: any) => {
 
-  const { item } = props;
+  const { item, idx, viewCart, setViewCart } = props;
 
   const [isModalOpen, setIsModalOpen] = useState<any>(false);
-  const [addListItem, setaddListItem] = useState<any>('');
+  const [selectedItem, setSelectedItem] = useState<any>(null);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
+  const [quantity, setQuantity] = useState<number>(1);
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-    setaddListItem(1)
-  };
+  useEffect(() => {
+    quantityOp(quantity);
+  }, [quantity]);
+
+  // const showModal = () => {
+  //   setIsModalOpen(true);
+  // };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  function quantityOp(calledWith: any) {
+    if (calledWith == 0) {
+      setSelectedItem(null);
+
+      const search = viewCart.findIndex((element: any) => element.id == idx);
+      console.log(TAG + " finding ", search);
+      if (search !== -1) {
+        console.log(TAG + " remove process ");
+        const tempObj = [...viewCart];
+        console.log(TAG + " working on ", tempObj);
+        const searchRs = tempObj.findIndex((element: any) => element.id == idx);
+        console.log(TAG + " searchRs ", searchRs);
+        tempObj.splice(searchRs, 1);
+        console.log(TAG + " tempObj ", tempObj);
+        setViewCart(tempObj);
+      }
+
+    } else {
+
+      const search = viewCart.findIndex((element: any) => element.id == idx);
+      // console.log(TAG + " finding ", search);
+      if (search !== -1) {
+        // console.log(TAG + " finding ", search);
+        const tempObj = [...viewCart];
+        console.log(TAG + " tempObj ", tempObj);
+        const searchObj = viewCart.find((element: any) => element.id == idx);
+        const searchRs = tempObj.findIndex((element: any) => element.id == idx);
+        searchObj.quantity = Number(calledWith);
+        tempObj[searchRs] = searchObj;
+        setViewCart(tempObj);
+      }
+
+    }
+  }
+
+  const handleOk = (calledWith: any, varientPrice:number) => {
+    // console.log(TAG + " selected varient of item ", calledWith);
+    setIsModalOpen(false);
+    setQuantity(1);
+    setSelectedItem(item);
+
+    const itemData = {
+      id: idx,
+      item: item.productName,
+      varient: calledWith,
+      quantity: 1,
+      price: varientPrice,
+    }
+
+    setViewCart([...viewCart, itemData]);
+
+  };
+
+
+  // console.log(TAG + " item self ", item);
+  // console.log(TAG + " idx ", idx);
+  console.log(TAG + " viewCart ", viewCart);
+  // console.log(TAG + " quantity ", quantity);
+  // console.log(viewCart.length);
+
 
   return (
     <>
@@ -45,12 +107,15 @@ const ProductItems = (props: any) => {
             </div>
             <div>
               <div>
-                {addListItem ?
-                  <Quantity setaddListItem={setaddListItem} />
+                {selectedItem !== null ?
+                  <Quantity
+                    quantity={quantity}
+                    setQuantity={setQuantity}
+                  />
                   :
                   <div
                     className='p-1 my-2 text-center bdr-w-1 br-6 br-solid brc-gray fw-bold'
-                    onClick={showModal}
+                    onClick={() => setIsModalOpen(true)}
                   >
                     Add +
                   </div>
@@ -62,9 +127,11 @@ const ProductItems = (props: any) => {
       </div>
 
       <AddItem
+        varientItem={item.productVarient}
         isModalOpen={isModalOpen}
         handleOk={handleOk}
         handleCancel={handleCancel}
+        productName={item.productName}
       />
     </>
   )

@@ -4,24 +4,76 @@ import { Modal } from 'antd';
 import InputRadio from '@/component/inputradio/InputRadio';
 import ButtonSimple from '@/component/buttonsimple/buttonsimple';
 
+const TAG = "Add Item Modal: ";
 const AddItem = (props: any) => {
 
-  const { isModalOpen, handleOk, handleCancel } = props;
+  const { isModalOpen, handleOk, handleCancel, varientItem, productName } = props;
 
-  const submithandler = () => {
-    console.log("add item");
-  }
+  const [varient, setVarient] = useState("small");
+  const [varientPrice, setVarientPrice] = useState(35);
+
+  const varientList = [
+    { value: "small", label: "small", price: 35 },
+    { value: "medium", label: "medium", price: 45 },
+    { value: "large", label: "large", price: 55 },
+    { value: "special", label: "special", price: 65 }
+  ]
+
+  const handleVarientChange = (value: string, price: number) => {
+    setVarient(value);
+    setVarientPrice(price);
+  };
+
+  console.log(TAG + " selected price varient ", varientItem);
+  // console.log(TAG + " selected ", varient);
 
   return (
-    <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
-      <div className='mx-5 d-flex justify-content-between align-items-center'>
-        <p>Dirnks</p>
-        <span>
-          <InputRadio options={[{value:'1323'}]}/>
-        </span>
-      </div>
-      <p>Some contents...</p>
-      <div className='col-3'>
+    <Modal
+      title="Basic
+      Modal"
+      open={isModalOpen}
+      onCancel={handleCancel}
+      footer={null}
+    >
+      <div className='mx-5 my-3 '>
+        <p className='mx-0'>{productName}</p>
+        <div className='col-12'>
+
+          {/* {varientList.map((item: any, index: number) => {
+            return (
+              <div className='d-flex' key={index}>
+                <div className='col-6'>
+                  <InputRadio
+                    options={[item]}
+                    value={varient}
+                    setValue={setVarient}
+                    setValue={(setVarient: any) => handleVarientChange(setVarient, item.price)}
+                  />
+                </div>
+                <div className='mt-4'>{`${item.price} Rs.`}</div>
+              </div>
+            )
+          })
+          } */}
+
+          {varientItem.map((item: any) => {
+            return (
+              <div className='d-flex'>
+                <div className='col-6'>
+                  <InputRadio
+                    options={[{ value: item.varient, label: item.varient }]}
+                    value={varient}
+                    // setValue={setVarient}
+                    setValue={(setVarient: any) => handleVarientChange(setVarient, item.Price)}
+                  />
+                </div>
+                <div className='mt-4'>{`${item.Price} Rs.`}</div>
+              </div>
+            )
+          })
+          }
+          
+        </div>
       </div>
       <ButtonSimple
         title="Cancel"
@@ -33,7 +85,7 @@ const AddItem = (props: any) => {
         title="Submit"
         type="btn btn-primary me-3"
         disabled={false}
-        onClickEvent={handleOk}
+        onClickEvent={handleOk.bind('', varient, varientPrice)}
       />
     </Modal>
   )

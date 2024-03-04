@@ -1,16 +1,31 @@
 import React, { useState } from 'react';
 import { Modal } from 'antd';
 import CustomCheckbox from '@/component/checkbox/checkbox';
+import InputRadio from '@/component/inputradio/InputRadio';
 
+
+const TAG = 'FILTER PAGE  ';
 
 const FilterMenu = (props: any) => {
 
-  const { filterOpen, setfilterOpen, children } = props
+  const { filterOpen, setfilterOpen, children, product, setProduct, dummyData } = props
 
   const [isModalOpen, setIsModalOpen] = useState<any>(false);
+  const [catogory, setCatogory] = useState<any>(null);
+
+  console.log(TAG, ' filterpage', dummyData);
+
 
   const handleOk = () => {
-    setfilterOpen(false);
+    if (catogory !== null) {
+      const filterProduct = dummyData.filter((item: any) => item.category == catogory)
+      console.log(TAG, 'FILTER CATEGORY ', filterProduct);
+      setProduct(filterProduct)
+      setfilterOpen(false);
+    } else {
+      setProduct(dummyData)
+      setfilterOpen(false);
+    }
   };
 
   const handleCancel = () => {
@@ -19,42 +34,23 @@ const FilterMenu = (props: any) => {
 
   return (
     <Modal title="Filter" open={filterOpen} onOk={handleOk} onCancel={handleCancel}>
-      <div className='mx-5 d-flex justify-content-between'>
-        <p>Dirnks</p>
-        <span>
-          <CustomCheckbox />
-        </span>
-      </div>
-      <div className='mx-5 d-flex justify-content-between'>
-        <p>Pizaa</p>
-        <span>
-          <CustomCheckbox />
-        </span>
-      </div>
-      <div className='mx-5 d-flex justify-content-between'>
-        <p>Momos</p>
-        <span>
-          <CustomCheckbox />
-        </span>
-      </div>
-      <div className='mx-5 d-flex justify-content-between'>
-        <p>Burger</p>
-        <span>
-          <CustomCheckbox />
-        </span>
-      </div>
-      <div className='mx-5 d-flex justify-content-between'>
-        <p>Ice-Creem</p>
-        <span>
-          <CustomCheckbox />
-        </span>
-      </div>
-      <div className='mx-5 d-flex justify-content-between'>
-        <p>Coffe</p>
-        <span>
-          <CustomCheckbox />
-        </span>
-      </div>
+      <InputRadio
+        options={[{ value: null, label: 'select All' }]}
+        value={catogory}
+        setValue={setCatogory}
+      />
+      {dummyData.map((item: any, index: number) => {
+        return (
+          <div className='' key={index}>
+            <InputRadio
+              options={[{ value: item.category, label: item.category }]}
+              value={catogory}
+              setValue={setCatogory}
+            />
+          </div>
+        )
+      })
+      }
     </Modal>
   )
 }

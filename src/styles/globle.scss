@@ -1,4 +1,4 @@
-@import './variable.scss'; 
+@import './variable.scss';
 
 a {
   text-decoration: none;
@@ -80,7 +80,7 @@ a {
 
 .brc-gray {
   border-color: $theme_light_gray;
-} 
+}
 
 .br-solid {
   border-style: solid;
@@ -125,9 +125,30 @@ a {
   font-family: 'open-sans-bold';
 }
 
-// 
+// line height
 
 .lh-20 {
   line-height: 20px;
 }
 
+//  positions
+
+.p-absolute {
+  position: absolute;
+}
+
+.p-relative {
+  position: relative;
+}
+
+.p-fixed {
+  position: fixed;
+}
+
+.p-sticky {
+  position: sticky;
+}
+
+.p-b-50 {
+  bottom: 50px;
+}

@@ -5,19 +5,19 @@ import { Radio } from 'antd';
 
 const InputRadio = (props: any) => {
 
-  const { label, options, value, setValue, disabled ,rowSyncId="" ,localStorageItem=""} = props;
+  const { label, options, value, setValue, disabled, rowSyncId = "", localStorageItem = "" } = props;
 
 
 
   const onChange = (e: RadioChangeEvent) => {
     // console.log('radio checked', e.target.value);
 
-    if(rowSyncId && localStorageItem){
+    if (rowSyncId && localStorageItem) {
       localStorage.removeItem(localStorageItem)
       const indtrack: any = document.getElementById(rowSyncId);
       indtrack.innerHTML = String(0);
     }
-    
+
     setValue(e.target.value);
   };
 
