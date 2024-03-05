@@ -12,7 +12,7 @@ const ProductItems = (props: any) => {
   const [isModalOpen, setIsModalOpen] = useState<any>(false);
   const [selectedItem, setSelectedItem] = useState<any>(null);
 
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantity, setQuantity] = useState<number>(0);
 
   useEffect(() => {
     quantityOp(quantity);
@@ -98,7 +98,7 @@ const ProductItems = (props: any) => {
 
         <div className='px-3'>
           <div className=' mt-2 fs-18 fw-bold'>{item.productName}</div>
-          <p className='lh-20'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic modi non facere earum.</p>
+          <p className='lh-20'>{item.productDiscription}</p>
           <div className='d-flex justify-content-between'>
             <div>
               <p className='m-0'><span className='fw-bold'>Categery: </span> {item.category}</p>

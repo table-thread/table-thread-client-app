@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Modal } from 'antd';
 import InputRadio from '@/component/inputradio/InputRadio';
@@ -9,15 +9,20 @@ const AddItem = (props: any) => {
 
   const { isModalOpen, handleOk, handleCancel, varientItem, productName } = props;
 
-  const [varient, setVarient] = useState("small");
-  const [varientPrice, setVarientPrice] = useState(35);
+  const [varient, setVarient] = useState<string>("small");
+  const [varientPrice, setVarientPrice] = useState<number>();
 
-  const varientList = [
-    { value: "small", label: "small", price: 35 },
-    { value: "medium", label: "medium", price: 45 },
-    { value: "large", label: "large", price: 55 },
-    { value: "special", label: "special", price: 65 }
-  ]
+  // const varientList = [
+  //   { value: "small", label: "small", price: 35 },
+  //   { value: "medium", label: "medium", price: 45 },
+  //   { value: "large", label: "large", price: 55 },
+  //   { value: "special", label: "special", price: 65 }
+  // ]
+
+  useEffect(() => {
+    setVarient(varientItem[0].value);
+    setVarientPrice(varientItem[0].Price);
+  },[])
 
   const handleVarientChange = (value: string, price: number) => {
     setVarient(value);

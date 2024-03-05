@@ -33,6 +33,7 @@ const index = () => {
         const searchRs = tempObj.findIndex((element: any) => element.id == itemId);
         tempObj.splice(searchRs, 1);
         setCartItem(tempObj);
+        setTotal(calcuTotal(tempObj));
       }
 
     } if (calledWith !== 0) {

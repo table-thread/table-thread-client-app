@@ -8,13 +8,13 @@ const TAG = 'FILTER PAGE  ';
 
 const FilterMenu = (props: any) => {
 
-  const { filterOpen, setfilterOpen, children, product, setProduct, dummyData } = props
+  const { filterOpen, setfilterOpen, children, setProduct, dummyData } = props
 
-  const [isModalOpen, setIsModalOpen] = useState<any>(false);
   const [catogory, setCatogory] = useState<any>(null);
 
   console.log(TAG, ' filterpage', dummyData);
 
+  const filterTitles = ["fast food", "drink", "noodles", "breakfast", "lunch", "dinner"]
 
   const handleOk = () => {
     if (catogory !== null) {
@@ -39,11 +39,11 @@ const FilterMenu = (props: any) => {
         value={catogory}
         setValue={setCatogory}
       />
-      {dummyData.map((item: any, index: number) => {
+      {filterTitles.map((item: any, index: number) => {
         return (
           <div className='' key={index}>
             <InputRadio
-              options={[{ value: item.category, label: item.category }]}
+              options={[{ value: item, label: item }]}
               value={catogory}
               setValue={setCatogory}
             />

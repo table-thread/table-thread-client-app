@@ -25,6 +25,7 @@ const Product = () => {
   
   const dummyData = [
     {
+      "id": "uuid1",
       "productName": "veg tikki",
       "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
       "productType": "veg",
@@ -47,10 +48,11 @@ const Product = () => {
       ]
     },
     {
+      "id": "uuid2",
       "productName": "tikki",
       "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
       "productType": "veg",
-      "category": "dirnk",
+      "category": "drink",
       "amount": 96,
       "image": "/assets/images/productImages/aaluTikki.jpeg",
       "productVarient": [
@@ -61,6 +63,7 @@ const Product = () => {
       ]
     },
     {
+      "id": "uuid3",
       "productName": "momos",
       "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
       "productType": "veg",
@@ -75,6 +78,7 @@ const Product = () => {
       ]
     },
     {
+      "id": "uuid4",
       "productName": "roll",
       "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
       "productType": "veg",
@@ -89,6 +93,7 @@ const Product = () => {
       ]
     },
     {
+      "id": "uuid5",
       "productName": "biryani",
       "productDiscription": " biryani is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
       "productType": "veg",
@@ -106,6 +111,29 @@ const Product = () => {
         },
         {
           "varient": "1 kg",
+          "Price": "185"
+        }
+      ]
+    },
+    {
+      "id": "uuid6",
+      "productName": "dosa",
+      "productDiscription": " biryani is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
+      "productType": "veg",
+      "category": "dinner",
+      "amount": 100,
+      "image": "/assets/images/productImages/aaluTikki.jpeg",
+      "productVarient": [
+        {
+          "varient": "plain",
+          "Price": "100"
+        },
+        {
+          "varient": "masala",
+          "Price": "135"
+        },
+        {
+          "varient": "spacial",
           "Price": "185"
         }
       ]
@@ -135,7 +163,11 @@ const Product = () => {
     // console.log(viewCart);
   }, [viewCart]);
 
-  console.log(TAG + " product list ", product);
+  useEffect(() => {
+    console.log(TAG + " product list ", product);
+    // console.log(viewCart);
+  }, [product]);
+
 
   return (
     <div>
@@ -143,7 +175,7 @@ const Product = () => {
         <span className='fs-30 fw-bold tc-w'>Table Thread</span>
         <p className='fs-6 m-0 py-2 tc-l-dark'>Powered by TechCo</p>
       </div>
-      <div className='px-5 col-12'>
+      <div className='px-1 col-12'>
         <div className='bdr-w-1 br-6 br-solid brc-gray my-4 mx-1 px-3 box-shadow'>
           <div className='d-flex justify-content-between align items-center mb-4'>
             <div className='fw-bold fs-24 my-2'>Products</div>
@@ -156,7 +188,8 @@ const Product = () => {
                 <div className='col-lg-3 col-md-4 col-sm-12' key={index}>
                   <ProductItems
                     item={item}
-                    idx={`uuid${index}`}
+                    // idx={`uuid${index}`}
+                    idx={item.id}
                     viewCart={viewCart}
                     setViewCart={setViewCart}
                   />
@@ -192,7 +225,6 @@ const Product = () => {
       <FilterMenu
         filterOpen={filterOpen}
         setfilterOpen={setfilterOpen}
-        product={product}
         setProduct={setProduct}
         dummyData={dummyData}
       >
