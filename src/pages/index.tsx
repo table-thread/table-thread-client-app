@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { logo } from '@/utils/image';
-
-// import LoginForm from '@/containers/LoginForm/LoginForm';
 import Index from './product/index';
 
 const Login = () => {
+
 
   return (
     <div className='p-0'>

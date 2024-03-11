@@ -7,20 +7,30 @@ import Quantity from '@/component/quantity/Quantity';
 const TAG = "Product Item Page: ";
 const ProductItems = (props: any) => {
 
-  const { item, idx, viewCart, setViewCart } = props;
+  const { item, idx, viewCart, setViewCart, product } = props;
 
   const [isModalOpen, setIsModalOpen] = useState<any>(false);
   const [selectedItem, setSelectedItem] = useState<any>(null);
-
-  const [quantity, setQuantity] = useState<number>(0);
+  const [quantity, setQuantity] = useState<any>(null);
 
   useEffect(() => {
-    quantityOp(quantity);
-  }, [quantity]);
+    const selectedCartItem = viewCart.find((item: any) => item.id === idx);
+    // console.log(TAG, 'selectedItem find', selectedCartItem, 'id', idx);
+    // console.log(TAG, 'viewCart find', viewCart);
 
-  // const showModal = () => {
-  //   setIsModalOpen(true);
-  // };
+    if (selectedCartItem) {
+      setSelectedItem(selectedCartItem.id);
+      setQuantity(selectedCartItem.quantity);
+    } else {
+      setSelectedItem(null);
+    }
+  }, [viewCart, product]);
+
+  useEffect(() => {
+    if (quantity !== null) {
+      quantityOp(quantity);
+    }
+  }, [quantity]);
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -31,26 +41,24 @@ const ProductItems = (props: any) => {
       setSelectedItem(null);
 
       const search = viewCart.findIndex((element: any) => element.id == idx);
-      console.log(TAG + " finding ", search);
+      // console.log(TAG + " finding if", search);
       if (search !== -1) {
-        console.log(TAG + " remove process ");
         const tempObj = [...viewCart];
-        console.log(TAG + " working on ", tempObj);
+        // console.log(TAG + " working on ", tempObj);
         const searchRs = tempObj.findIndex((element: any) => element.id == idx);
-        console.log(TAG + " searchRs ", searchRs);
+        // console.log(TAG + " searchRs ", searchRs);
         tempObj.splice(searchRs, 1);
-        console.log(TAG + " tempObj ", tempObj);
+        // console.log(TAG + " tempObj ", tempObj);
         setViewCart(tempObj);
       }
 
     } else {
-
       const search = viewCart.findIndex((element: any) => element.id == idx);
-      // console.log(TAG + " finding ", search);
+      // console.log(TAG + " finding else", search);
       if (search !== -1) {
         // console.log(TAG + " finding ", search);
         const tempObj = [...viewCart];
-        console.log(TAG + " tempObj ", tempObj);
+        // console.log(TAG + " tempObj ", tempObj);
         const searchObj = viewCart.find((element: any) => element.id == idx);
         const searchRs = tempObj.findIndex((element: any) => element.id == idx);
         searchObj.quantity = Number(calledWith);
@@ -61,11 +69,11 @@ const ProductItems = (props: any) => {
     }
   }
 
-  const handleOk = (calledWith: any, varientPrice:number) => {
+  const handleOk = (calledWith: any, varientPrice: number) => {
     // console.log(TAG + " selected varient of item ", calledWith);
     setIsModalOpen(false);
     setQuantity(1);
-    setSelectedItem(item);
+    setSelectedItem(item.id)
 
     const itemData = {
       id: idx,
@@ -79,10 +87,13 @@ const ProductItems = (props: any) => {
 
   };
 
+  useEffect(() => {
+    // console.log(TAG + " item selected ", selectedItem);
+  }, [selectedItem]);
 
   // console.log(TAG + " item self ", item);
   // console.log(TAG + " idx ", idx);
-  console.log(TAG + " viewCart ", viewCart);
+  // console.log(TAG + " viewCart ", viewCart);
   // console.log(TAG + " quantity ", quantity);
   // console.log(viewCart.length);
 
@@ -97,17 +108,17 @@ const ProductItems = (props: any) => {
         />
 
         <div className='px-3'>
-          <div className=' mt-2 fs-18 fw-bold'>{item.productName}</div>
+          <div className=' my-2 fs-18 fw-bold'>{item.productName}</div>
           <p className='lh-20'>{item.productDiscription}</p>
           <div className='d-flex justify-content-between'>
-            <div>
+            <div className=''>
               <p className='m-0'><span className='fw-bold'>Categery: </span> {item.category}</p>
               <p className='m-0'><span className='fw-bold'>Type: </span> {item.productType}</p>
               <p className='m-0'><span className='fw-bold'>Amount: </span> {item.amount}</p>
             </div>
             <div>
               <div>
-                {selectedItem !== null ?
+                {selectedItem == item.id ?
                   <Quantity
                     quantity={quantity}
                     setQuantity={setQuantity}

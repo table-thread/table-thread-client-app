@@ -11,9 +11,8 @@ const Quantity = (props: any) => {
   }
 
   const incressQuantity = () => {
-    setQuantity(quantity + 1);
-    console.log(quantity+1);
-    
+    setQuantity((quantity == null ? 0 : quantity) + 1);
+    // console.log(quantity + 1);
   }
 
   return (

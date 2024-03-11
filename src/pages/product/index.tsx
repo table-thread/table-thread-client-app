@@ -14,6 +14,7 @@ const Product = () => {
 
   const [defaultCurrent, setDefaultCurrent] = useState<number>(1);
   const [defaultPageSize, setDefaultPageSize] = useState<number>(10);
+
   const [filterOpen, setfilterOpen] = useState<boolean>(false);
   const [viewCart, setViewCart] = useState<any>([]);
   const [product, setProduct] = useState<any>([]);
@@ -22,7 +23,7 @@ const Product = () => {
     setDefaultCurrent(page);
     setDefaultPageSize(limit);
   };
-  
+
   const dummyData = [
     {
       "id": "uuid1",
@@ -141,33 +142,14 @@ const Product = () => {
   ];
 
   useEffect(() => {
-    // const dataFromLocalStorage = localStorage.getItem("productData");
-    
     setProduct(dummyData);
-
-    // if (dataFromLocalStorage !== null) {
-    //   const parseData = JSON.parse(dataFromLocalStorage);
-    // setProduct(parseData);
-    // }
-
-    // const cartdata = localStorage.getItem("cartData");
-    // if (cartdata !== null) {
-    //   const parseData = JSON.parse(cartdata)
-    //   // setViewCart(parseData);
-    // }
-
   }, [])
 
+
   useEffect(() => {
+    console.log(TAG + " product viewcart ", viewCart);
     localStorage.setItem("cartData", JSON.stringify(viewCart));
-    // console.log(viewCart);
   }, [viewCart]);
-
-  useEffect(() => {
-    console.log(TAG + " product list ", product);
-    // console.log(viewCart);
-  }, [product]);
-
 
   return (
     <div>
@@ -185,13 +167,13 @@ const Product = () => {
 
             {product.map((item: any, index: number) => {
               return (
-                <div className='col-lg-3 col-md-4 col-sm-12' key={index}>
+                <div className='col-lg-3 col-md-4 col-sm-6 col-12' key={index}>
                   <ProductItems
                     item={item}
-                    // idx={`uuid${index}`}
                     idx={item.id}
                     viewCart={viewCart}
                     setViewCart={setViewCart}
+                    product={product}
                   />
                 </div>
               )
@@ -222,14 +204,16 @@ const Product = () => {
           </div>
         </ div>
       </div >
+
       <FilterMenu
         filterOpen={filterOpen}
         setfilterOpen={setfilterOpen}
         setProduct={setProduct}
         dummyData={dummyData}
-      >
+        viewCart={viewCart}
+        setViewCart={setViewCart}
+      />
 
-      </FilterMenu>
     </div>
   );
 }

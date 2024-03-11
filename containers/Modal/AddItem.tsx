@@ -22,14 +22,14 @@ const AddItem = (props: any) => {
   useEffect(() => {
     setVarient(varientItem[0].value);
     setVarientPrice(varientItem[0].Price);
-  },[])
+  }, [])
 
   const handleVarientChange = (value: string, price: number) => {
     setVarient(value);
     setVarientPrice(price);
   };
 
-  console.log(TAG + " selected price varient ", varientItem);
+  // console.log(TAG + " selected price varient ", varientItem);
   // console.log(TAG + " selected ", varient);
 
   return (
@@ -44,26 +44,9 @@ const AddItem = (props: any) => {
         <p className='mx-0'>{productName}</p>
         <div className='col-12'>
 
-          {/* {varientList.map((item: any, index: number) => {
+          {varientItem.map((item: any, index: number) => {
             return (
               <div className='d-flex' key={index}>
-                <div className='col-6'>
-                  <InputRadio
-                    options={[item]}
-                    value={varient}
-                    setValue={setVarient}
-                    setValue={(setVarient: any) => handleVarientChange(setVarient, item.price)}
-                  />
-                </div>
-                <div className='mt-4'>{`${item.price} Rs.`}</div>
-              </div>
-            )
-          })
-          } */}
-
-          {varientItem.map((item: any) => {
-            return (
-              <div className='d-flex'>
                 <div className='col-6'>
                   <InputRadio
                     options={[{ value: item.varient, label: item.varient }]}
@@ -77,7 +60,7 @@ const AddItem = (props: any) => {
             )
           })
           }
-          
+
         </div>
       </div>
       <ButtonSimple

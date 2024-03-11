@@ -5,7 +5,7 @@ import {
 } from '@ant-design/icons';
 import { TiHome } from "react-icons/ti";
 import { SiAirtable } from "react-icons/si";
-import { FaCartPlus, FaKeyboard, FaCheckCircle, FaMinus, FaPlus  } from "react-icons/fa";
+import { FaCartPlus, FaKeyboard, FaCheckCircle, FaMinus, FaPlus, FaFilter, FaSearch } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi2";
 import { GiNotebook } from "react-icons/gi";
 import { IoMdSettings, IoIosLogOut } from "react-icons/io";
@@ -40,3 +40,5 @@ export const ICBsTrash3Fill = () => { return <BsTrash3Fill color="#773275" /> };
 export const ICFaCheckCircle = () => { return <FaCheckCircle color="#3e9e39" /> };
 export const ICCiSquarePlus = () => { return <FaPlus  color="#3e9e39" /> };
 export const ICCiSquareMinus = () => { return <FaMinus  color="#3e9e39" /> };
+export const ICFaFilter = () => { return <FaFilter  color="#3e9e39" /> };
+export const ICFaSearch = () => { return <FaSearch  color="#3e9e39" /> };
