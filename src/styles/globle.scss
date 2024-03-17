@@ -1,5 +1,9 @@
 @import './variable.scss';
 
+.ant-modal-content {
+  background-color: #ecf0f5 !important;
+}
+
 a {
   text-decoration: none;
 }
@@ -22,8 +26,17 @@ a {
   color: $theme_white;
 }
 
+.tc-grey {
+  color: $theme_light_dark;
+  
+}
+
 .bg-w {
   background-color: $theme_white;
+}
+
+.bg-green {
+  background-color: $theme_green;
 }
 
 .bg-red {
@@ -35,6 +48,12 @@ a {
 }
 
 // height & width
+
+
+.h-25 {
+  height: 25px;
+}
+
 .h-75 {
   height: 75px;
 }
@@ -109,6 +128,18 @@ a {
   border-color: $theme_light_gray;
 }
 
+.brc-w {
+  border-color: $theme_white;
+}
+
+.brc-red {
+  border-color: $theme_red;
+}
+
+.brc-green {
+  border-color: $theme_green;
+}
+
 .br-solid {
   border-style: solid;
 }
@@ -119,6 +150,14 @@ a {
 
 .bs-1 {
   border-left: 1px;
+}
+
+.br-t-l-6 {
+  border-top-left-radius: 6px;
+}
+
+.br-t-r-6 {
+  border-top-right-radius: 6px;
 }
 
 .br-t-l-30 {
@@ -138,6 +177,14 @@ a {
 }
 
 // font size, weight, family
+
+.fs-12 {
+  font-size: 12px;
+}
+
+.fs-14 {
+  font-size: 14px;
+}
 
 .fs-18 {
   font-size: 18px;

@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from 'react';
-
 import { Modal } from 'antd';
-import InputRadio from '@/component/inputradio/InputRadio';
+
 import ButtonSimple from '@/component/buttonsimple/buttonsimple';
+import SimpleRadio from '@/component/inputsimpleradio/simpleRadio';
 
 const TAG = "Add Item Modal: ";
 const AddItem = (props: any) => {
 
-  const { isModalOpen, handleOk, handleCancel, varientItem, productName } = props;
+  const { isModalOpen, handleOk, handleCancel, varientItem, itemDetails } = props;
 
   const [varient, setVarient] = useState<string>("small");
   const [varientPrice, setVarientPrice] = useState<number>();
-
-  // const varientList = [
-  //   { value: "small", label: "small", price: 35 },
-  //   { value: "medium", label: "medium", price: 45 },
-  //   { value: "large", label: "large", price: 55 },
-  //   { value: "special", label: "special", price: 65 }
-  // ]
 
   useEffect(() => {
     setVarient(varientItem[0].value);
@@ -34,28 +27,39 @@ const AddItem = (props: any) => {
 
   return (
     <Modal
-      title="Basic
-      Modal"
+      title=""
       open={isModalOpen}
       onCancel={handleCancel}
       footer={null}
+      className='ff-r'
     >
-      <div className='mx-5 my-3 '>
-        <p className='mx-0'>{productName}</p>
-        <div className='col-12'>
+      <div className='my-3'>
+        <p className='mx-0 fw-bold fs-18'>{itemDetails.productName}</p>
+        <div className='col-12 bg-w bdr-w-1 br-6 br-solid brc-w px-2'>
 
           {varientItem.map((item: any, index: number) => {
             return (
-              <div className='d-flex' key={index}>
-                <div className='col-6'>
-                  <InputRadio
-                    options={[{ value: item.varient, label: item.varient }]}
+              <div className='d-flex align-items-center gap-2 my-2' key={index}>
+
+                {itemDetails.productType == 'Veg' ?
+                  <div className='bg-w bdr-w-1 br-6 br-solid brc-green p-1'>
+                    <div className="bg-green br-50 p-1"></div>
+                  </div>
+                  :
+                  <div className='bg-w bdr-w-1 br-6 br-solid brc-red p-1'>
+                    <div className="bg-red br-50 p-1"></div>
+                  </div>
+                }
+
+                <div className='col-7 px-2'>{item.varient}</div>
+                <div className='col-2'>{`${item.Price} Rs.`}</div>
+                <div className='col-3'>
+                  <SimpleRadio
+                    options={[{ value: item.varient }]}
                     value={varient}
-                    // setValue={setVarient}
                     setValue={(setVarient: any) => handleVarientChange(setVarient, item.Price)}
                   />
                 </div>
-                <div className='mt-4'>{`${item.Price} Rs.`}</div>
               </div>
             )
           })
@@ -63,14 +67,9 @@ const AddItem = (props: any) => {
 
         </div>
       </div>
+
       <ButtonSimple
-        title="Cancel"
-        type="btn btn-primary me-3"
-        disabled={false}
-        onClickEvent={handleCancel}
-      />
-      <ButtonSimple
-        title="Submit"
+        title="Add Item"
         type="btn btn-primary me-3"
         disabled={false}
         onClickEvent={handleOk.bind('', varient, varientPrice)}

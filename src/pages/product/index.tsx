@@ -8,6 +8,7 @@ import FilterMenu from '@/containers/Modal/FilterMenu';
 import PaginationComponent from '@/component/pagination/pagination';
 
 import { ICGiNotebook } from '@/utils/icons';
+import ViewCartList from '@/containers/Modal/ViewCartList';
 
 const TAG = "Product Page: ";
 const Product = () => {
@@ -16,6 +17,7 @@ const Product = () => {
   const [defaultPageSize, setDefaultPageSize] = useState<number>(10);
 
   const [filterOpen, setfilterOpen] = useState<boolean>(false);
+  const [viewCartOpen, setViewCartOpen] = useState<boolean>(false);
   const [viewCart, setViewCart] = useState<any>([]);
   const [product, setProduct] = useState<any>([]);
 
@@ -27,79 +29,79 @@ const Product = () => {
   const dummyData = [
     {
       "id": "uuid1",
-      "productName": "veg tikki",
+      "productName": "Veg tikki",
       "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
-      "productType": "veg",
-      "category": "fast food",
+      "productType": "Veg",
+      "category": "Fast food",
       "amount": 96,
       "image": "/assets/images/productImages/aaluTikki.jpeg",
       "productVarient": [
         {
-          "varient": "small tikki",
+          "varient": "Small tikki",
           "Price": "35"
         },
         {
-          "varient": "medium tikki",
+          "varient": "Medium tikki",
           "Price": "45"
         },
         {
-          "varient": "larze tikki",
+          "varient": "Larze tikki",
           "Price": "60"
         }
       ]
     },
     {
       "id": "uuid2",
-      "productName": "tikki",
+      "productName": "Cold cofee",
       "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
-      "productType": "veg",
-      "category": "drink",
-      "amount": 96,
+      "productType": "Veg",
+      "category": "Drink",
+      "amount": 40,
       "image": "/assets/images/productImages/aaluTikki.jpeg",
       "productVarient": [
         {
-          "varient": "aalu tikki",
+          "varient": "Cold coffe",
           "Price": "40"
         }
       ]
     },
     {
       "id": "uuid3",
-      "productName": "momos",
+      "productName": "Momos",
       "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
-      "productType": "veg",
-      "category": "lunch",
+      "productType": "Veg",
+      "category": "Lunch",
       "amount": 70,
       "image": "/assets/images/productImages/aaluTikki.jpeg",
       "productVarient": [
         {
-          "varient": "momos",
+          "varient": "Momos",
           "Price": "60"
         }
       ]
     },
     {
       "id": "uuid4",
-      "productName": "roll",
+      "productName": "Roll",
       "productDiscription": " Tikki is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
-      "productType": "veg",
-      "category": "breakfast",
+      "productType": "Non-veg",
+      "category": "Breakfast",
       "amount": 85,
       "image": "/assets/images/productImages/aaluTikki.jpeg",
       "productVarient": [
         {
-          "varient": "egg roll",
+          "varient": "Egg roll",
           "Price": "85"
         }
       ]
     },
     {
       "id": "uuid5",
-      "productName": "biryani",
+      "productName": "Biryani",
       "productDiscription": " biryani is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
-      "productType": "veg",
-      "category": "dinner",
-      "amount": 96,
+      "productType": "Non-veg",
+      "category": "Dinner",
+      "amount": 85,
       "image": "/assets/images/productImages/aaluTikki.jpeg",
       "productVarient": [
         {
@@ -118,23 +120,23 @@ const Product = () => {
     },
     {
       "id": "uuid6",
-      "productName": "dosa",
-      "productDiscription": " biryani is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
-      "productType": "veg",
-      "category": "dinner",
+      "productName": "Dosa",
+      "productDiscription": " Biryani is a very popular snack indigenous to the Indian subcontinent. In Hindi, Aloo means “potato” and tikki means “patties or cutlet”.",
+      "productType": "Veg",
+      "category": "Dinner",
       "amount": 100,
       "image": "/assets/images/productImages/aaluTikki.jpeg",
       "productVarient": [
         {
-          "varient": "plain",
+          "varient": "Plain",
           "Price": "100"
         },
         {
-          "varient": "masala",
+          "varient": "Masala",
           "Price": "135"
         },
         {
-          "varient": "spacial",
+          "varient": "Spacial",
           "Price": "185"
         }
       ]
@@ -144,6 +146,9 @@ const Product = () => {
   useEffect(() => {
     setProduct(dummyData);
   }, [])
+
+  // console.log(TAG, "VIEW CART: ", viewCart);
+
 
 
   useEffect(() => {
@@ -193,14 +198,19 @@ const Product = () => {
                 type='primary'
               />
             </div>
-            <div className='d-flex justify-content-center'>
-              <Link
-                className={`col-4 br-6 p-2 bg-red p-fixed p-b-50 text-center ${viewCart.length !== 0 ? '' : 'd-none'}`}
-                href='/viewCart'
-              >
-                View Cart <ICGiNotebook />
-              </Link>
-            </div>
+            {viewCart.length !== 0 ?
+              <div
+                className='d-flex justify-content-center'
+                onClick={() => setViewCartOpen(true)}>
+                <div
+                  className={`col-4 br-6 p-2 bg-red p-fixed p-b-50 text-center `}
+                >
+                  Item List's <ICGiNotebook /> {viewCart.length}
+                </div>
+              </div>
+              :
+              <div></div>
+            }
           </div>
         </ div>
       </div >
@@ -210,6 +220,13 @@ const Product = () => {
         setfilterOpen={setfilterOpen}
         setProduct={setProduct}
         dummyData={dummyData}
+        viewCart={viewCart}
+        setViewCart={setViewCart}
+      />
+
+      <ViewCartList
+        viewCartOpen={viewCartOpen}
+        setViewCartOpen={setViewCartOpen}
         viewCart={viewCart}
         setViewCart={setViewCart}
       />

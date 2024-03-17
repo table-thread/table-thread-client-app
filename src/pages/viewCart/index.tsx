@@ -16,25 +16,40 @@ const index = () => {
       setCartItem(parseData)
       console.log(TAG, "getting selected deta ", parseData);
 
-      parseData.map((item: any) => {
-        const amount = item.price * item.quantity
-        setTotal((prev: any) => prev + amount)
-      })
+      setTotal(calcuTotal(parseData));
+
     }
   }, [])
 
-  function quantityOp(calledWith: any, itemId: any) {
+  function quantityOp(calledWith: any, itemId: any, index: any) {
     if (calledWith == 0) {
 
       const search = cartItems.findIndex((element: any) => element.id == itemId);
       // console.log(TAG + " finding ", search);
       if (search !== -1) {
         const tempObj = [...cartItems];
+        const searchObj = tempObj.find((element: any) => element.id == itemId);
         const searchRs = tempObj.findIndex((element: any) => element.id == itemId);
-        tempObj.splice(searchRs, 1);
-        setCartItem(tempObj);
-        setTotal(calcuTotal(tempObj));
-      }
+        const varientArray = searchObj.varients;
+        console.log(TAG + " finding tt", searchObj);
+        if (varientArray.length == 1) {
+          tempObj.splice(searchRs, 1);
+          setCartItem(tempObj);
+        } if (varientArray.length >= 2) {
+          const tempVarObj = [...varientArray];
+          const searcVarhObj = tempVarObj.find((element: any, idx: any) => idx == index);
+          const searcVarhRs = tempVarObj.findIndex((element: any, idx: any) => idx == index);
+          console.log(TAG + " finding cct", tempVarObj);
+
+          tempVarObj.splice(searcVarhRs, 1);
+          searchObj.varients = tempVarObj
+          tempObj[searchRs] = searchObj;
+          setCartItem(tempObj);
+          console.log(TAG + " finding cct", tempObj);
+        };
+
+        // setTotal(calcuTotal(tempObj));
+      };
 
     } if (calledWith !== 0) {
 
@@ -43,25 +58,35 @@ const index = () => {
         const tempObj = [...cartItems];
         const searchObj = cartItems.find((element: any) => element.id == itemId);
         const searchRs = tempObj.findIndex((element: any) => element.id == itemId);
-        searchObj.quantity = Number(calledWith);
+        const varObj = [...searchObj.varients]
+        console.log(TAG + " finding new items ", varObj.length);
+        searchObj.quantity = Number(varObj.length);
+        const searchVarObj = varObj.find((element: any, idx: number) => idx == index);
+
+        searchVarObj.quantity = Number(calledWith);
+        console.log(TAG + " finding new items ", (searchVarObj));
         tempObj[searchRs] = searchObj;
-        console.log(TAG + " finding new items ", tempObj);
         setCartItem(tempObj);
+        console.log(tempObj);
+
         setTotal(calcuTotal(tempObj));
-      }
-    }
-  }
+      };
+    };
+  };
 
   const calcuTotal = (itemList: any) => {
     let totalAmount: number = 0;
-    itemList.forEach((item: any) => {
-      totalAmount = totalAmount + Number(Number(item?.quantity) * item?.price);
+
+    itemList.map((element: any) => {
+      element.varients.forEach((item: any) => {
+        totalAmount = totalAmount + Number(Number(item?.quantity) * item?.price);
+      })
     })
     return Number(totalAmount);
   }
 
   const orderitems = () => {
-    const oderData = { orderItem: { cartItems }, totalAmount: {total}}
+    const oderData = { orderItem: { cartItems }, totalAmount: { total } }
     // console.log(TAG, ' ', oderData);
     localStorage.setItem("oderItems", JSON.stringify(oderData));
   }
@@ -76,18 +101,25 @@ const index = () => {
           <div className='col-3 fw-bold'>price</div>
         </div>
 
-        {cartItems.length > 0 && cartItems.map((item: any, index: number) => {
-          return (
-            <div key={index} id={item.id} className='row my-2'>
-              <div className='col-3'>{item.item}</div>
-              <div className='col-3'>{item.varient}</div>
-              <div className='col-3'>
-                <Quantity quantity={item.quantity} setQuantity={(quantity: number) => quantityOp(quantity, item.id)} />
+        {cartItems.length > 0 && cartItems.map((item: any, index: number) => (
+
+          (item.varients).map((element: any, idx: number) => {
+            // console.log('testinggggggggg', element);
+            return (
+              <div key={idx} id={item.id} className='row my-2'>
+                <div className='col-3'>{item.item}</div>
+                <div className='col-3'>{element.variant}</div>
+
+                <div className='col-3'>
+                  <Quantity quantity={element.quantity} setQuantity={(quantity: any) => quantityOp(quantity, item.id, idx)} />
+                </div>
+                <div className='col-3'>{element.price * element.quantity}</div>
               </div>
-              <div className='col-3'>{item.price * item.quantity}</div>
-            </div>
-          )
-        })}
+            )
+
+          })
+        )
+        )}
 
         <div className='row justify-content-between border-top mb-3'>
           <div className='col-6 fw-bold'>Total</div>

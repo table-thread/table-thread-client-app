@@ -3,6 +3,7 @@ import { Modal } from 'antd';
 
 import InputRadio from '@/component/inputradio/InputRadio';
 import CustomCheckbox from '@/component/checkbox/checkbox';
+import SimpleRadio from '@/component/inputsimpleradio/simpleRadio';
 
 
 const TAG = "FILTER PAGE:  ";
@@ -36,17 +37,20 @@ const FilterMenu = (props: any) => {
     setfilterOpen(false);
   };
 
-  console.log(TAG, ' filterpage viewcart', viewCart);
-  console.log(TAG, ' catogory', catogory);
-  console.log(TAG, ' dummyData', dummyData);
+  // console.log(TAG, ' filterpage viewcart', viewCart);
+  // console.log(TAG, ' catogory', catogory);
+  // console.log(TAG, ' dummyData', dummyData);
 
   return (
-    <Modal title="Filter" open={filterOpen} onOk={handleOk} onCancel={handleCancel}>
+    <Modal  open={filterOpen} onOk={handleOk} onCancel={handleCancel}>
+      <div className="fw-bold fs-18 text-center my-1 ff-r">Filter</div>
       {filterTitles.map((item: any, index: number) => {
         return (
-          <div className='' key={index}>
-            <InputRadio
-              options={[{ value: item, label: item }]}
+          <div className='d-flex justify-content-between my-2 px-2 ff-r' key={index}>
+            <div className='col-5'>{item}</div>
+            {/* <div className='col-3'>{dummyData.length}</div> */}
+            <SimpleRadio
+              options={[{ value: item }]}
               value={catogory}
               setValue={setCatogory}
             />
