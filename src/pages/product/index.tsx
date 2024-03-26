@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { FloatButton } from 'antd';
+import { FloatButton, Input } from 'antd';
 
 import ProductItems from '@/containers/ProductItems/ProductItems';
 import FilterMenu from '@/containers/Modal/FilterMenu';
 
 import PaginationComponent from '@/component/pagination/pagination';
 
-import { ICGiNotebook } from '@/utils/icons';
+import { ICGiNotebook, ICFaFilter } from '@/utils/icons';
 import ViewCartList from '@/containers/Modal/ViewCartList';
 
 const TAG = "Product Page: ";
@@ -158,9 +158,17 @@ const Product = () => {
 
   return (
     <div>
-      <div className='text-center m-0 bg-red pt-2'>
+      <div className='text-center m-0 bg-light-red pt-2'>
         <span className='fs-30 fw-bold tc-w'>Table Thread</span>
         <p className='fs-6 m-0 py-2 tc-l-dark'>Powered by TechCo</p>
+      </div>
+      <div className='d-flex my-1'>
+        <div className='col-lg-10 col-md-10 col-8 '>
+          <Input placeholder="Basic usage" />
+        </div>
+        <div className='col-lg-2 col-md-2 col-4 text-center bg-red' onClick={() => setfilterOpen(true)}>
+          <span>Filter </span> <ICFaFilter />
+        </div>
       </div>
       <div className='px-1 col-12'>
         <div className='bdr-w-1 br-6 br-solid brc-gray my-4 mx-1 px-3 box-shadow'>
@@ -172,7 +180,7 @@ const Product = () => {
 
             {product.map((item: any, index: number) => {
               return (
-                <div className='col-lg-3 col-md-4 col-sm-6 col-12' key={index}>
+                <div className='col-lg-3 col-md-6 col-sm-6 col-12' key={index}>
                   <ProductItems
                     item={item}
                     idx={item.id}
@@ -191,12 +199,15 @@ const Product = () => {
               onChange={callPaginationAction}
               onShowSizeChange={callPaginationAction}
             />
-            <div className='col-2'>
-              <FloatButton
+            <div className='col-2 hemant'>
+              {/* <FloatButton
                 onClick={() => setfilterOpen(true)}
-                // description='filter'
-                type='primary'
-              />
+                // icon={}
+                description='filter'
+                type='default'
+                // className='bg-red'
+              /> */}
+              filter
             </div>
             {viewCart.length !== 0 ?
               <div

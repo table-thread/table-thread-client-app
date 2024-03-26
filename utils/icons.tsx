@@ -9,7 +9,7 @@ import { FaCartPlus, FaKeyboard, FaCheckCircle, FaMinus, FaPlus, FaFilter, FaSea
 import { HiUsers } from "react-icons/hi2";
 import { GiNotebook } from "react-icons/gi";
 import { IoMdSettings, IoIosLogOut } from "react-icons/io";
-import { IoEye, IoEyeOff } from "react-icons/io5";
+import { IoEye, IoEyeOff, IoFilterCircleOutline } from "react-icons/io5";
 import { MdEdit } from "react-icons/md";
 import { BsTrash3Fill } from "react-icons/bs";
 import { CiSquarePlus, CiSquareMinus } from "react-icons/ci";
@@ -40,5 +40,5 @@ export const ICBsTrash3Fill = () => { return <BsTrash3Fill color="#773275" /> };
 export const ICFaCheckCircle = () => { return <FaCheckCircle color="#3e9e39" /> };
 export const ICCiSquarePlus = () => { return <FaPlus  color="#3e9e39" /> };
 export const ICCiSquareMinus = () => { return <FaMinus  color="#3e9e39" /> };
-export const ICFaFilter = () => { return <FaFilter  color="#3e9e39" /> };
+export const ICFaFilter = () => { return <IoFilterCircleOutline  color="#b11313" /> };
 export const ICFaSearch = () => { return <FaSearch  color="#3e9e39" /> };

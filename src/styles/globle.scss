@@ -49,6 +49,9 @@ a {
 
 // height & width
 
+.w-90 {
+  width: 90px;
+}
 
 .h-25 {
   height: 25px;
@@ -239,8 +242,28 @@ a {
   position: sticky;
 }
 
+.p-b-0 {
+  bottom: 0px;
+}
+
+.p-b-10 {
+  bottom: 10px;
+}
+
 .p-b-50 {
   bottom: 50px;
+}
+
+.p-bd-14 {
+  bottom: -14px;
+}
+
+.p-l-20 {
+  left: 20px;
+}
+
+.p-l-30 {
+  left: 30px;
 }
 
 // opacity

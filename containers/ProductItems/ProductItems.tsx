@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Rate } from 'antd';
 
 import AddItem from '../Modal/AddItem';
 
@@ -120,31 +121,33 @@ const ProductItems = (props: any) => {
 
   return (
     <>
-      <div className='pb-3 bdr-w-1 br-6 br-solid brc-gray'>
-        <img
-          className='h-200 w-100 obj-cover bdr-w-1 br-t-l-6 br-t-r-6 br-solid brc-gray'
-          src={item.image}
-          alt="product image"
-        />
+      <div className=' bdr-w-1 br-6 br-solid brc-gray d-flex p-relative'>
+        <div className='d-flex justify-content-center'>
+          <img
+            className='h-125 obj-cover bdr-w-1 br-6 br-solid brc-gray'
+            src={item.image}
+            alt="product image"
+          />
+           <div
+            className='w-90 bg-light-red p-2 py-1 text-center br-6 fw-bold p-absolute p-bd-14 '
+            onClick={() => setIsModalOpen(true)}
+          >
+            Add +
+          </div>
+        </div>
 
         <div className='px-3'>
-          <div className=' my-2 fs-18 fw-bold'>{item.productName}</div>
-          <p className='lh-20 fs-14 tc-grey'>{item.productDiscription}</p>
-          <div className='d-flex justify-content-between'>
-            <div className=''>
-              <p className='m-0'><span className='fw-bold'>Categery: </span> {item.category}</p>
-              <p className='m-0'><span className='fw-bold'>Type: </span> {item.productType}</p>
-              <p className='m-0'><span className='fw-bold'>Amount: </span> {item.amount} Rs.</p>
-            </div>
-            <div>
-              <div
-                className='p-2 my-2 text-center bdr-w-1 br-6 br-solid brc-gray fw-bold'
-                onClick={() => setIsModalOpen(true)}
-              >
-                Add +
-              </div>
-            </div>
-          </div>
+          <div className='  fs-18 fw-bold'>{item.productName}</div>
+          <p className='lh-20 fs-14 tc-grey my-0'>{item.productDiscription ? item.productDiscription.slice(0, 55) : ""} ...<span className='fw-bold'>more</span></p>
+          {/* <div className=' justify-content-between'> */}
+            {/* <div className=''> */}
+              {/* <p className='m-0'><span className='fs-14 fw-bold'>Categery: </span> {item.category}</p> */}
+              {/* <p className='m-0'><span className='fw-bold'>Type: </span> {item.productType}</p> */}
+              <p className='my-1'><span className='fw-bold'>Amount: </span> {item.amount} Rs.</p>
+              {/* <Rate allowHalf defaultValue={3.5} /> */}
+            {/* </div> */}
+          {/* </div> */}
+         
         </div>
       </div>
 
