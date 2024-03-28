@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { ICCiSquarePlus, ICCiSquareMinus } from '@/utils/icons';
 
@@ -16,18 +16,26 @@ const Quantity = (props: any) => {
   }
 
   return (
-    <>
-      <div className='d-flex align-items-center bdr-w-1 br-6 br-solid brc-gray'>
-        <span className='m-0 p-1 border-end' onClick={() => decressQuantity()}><ICCiSquareMinus /></span>
-        <div
-          className='m-0 p-1 text-center'
-          style={{ width: 40 }}
-        >
-          {quantity}
-        </div>
-        <span className='m-0 p-1 border-start' onClick={() => incressQuantity()}><ICCiSquarePlus /></span>
+    <div className='d-flex align-items-center bdr-w-1 br-6 br-solid brc-gray'>
+      <span
+        className='m-0 p-1 border-end'
+        onClick={() => decressQuantity()}
+      >
+        <ICCiSquareMinus />
+      </span>
+      <div
+        className='m-0 p-1 text-center'
+        style={{ width: 40 }}
+      >
+        {quantity}
       </div>
-    </>
+      <span
+        className='m-0 p-1 border-start'
+        onClick={() => incressQuantity()}
+      >
+        <ICCiSquarePlus />
+      </span>
+    </div>
   )
 }
 

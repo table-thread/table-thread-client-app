@@ -4,6 +4,7 @@ import { Rate } from 'antd';
 import AddItem from '../Modal/AddItem';
 
 import Quantity from '@/component/quantity/Quantity';
+import ItemDetails from '../Modal/itemDetails';
 
 const TAG = "Product Item Page: ";
 const ProductItems = (props: any) => {
@@ -26,12 +27,6 @@ const ProductItems = (props: any) => {
       setSelectedItem(null);
     }
   }, [viewCart, product]);
-
-  // useEffect(() => {
-  //   if (quantity !== null) {
-  //     quantityOp(quantity);
-  //   }
-  // }, [quantity]);
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -128,7 +123,7 @@ const ProductItems = (props: any) => {
             src={item.image}
             alt="product image"
           />
-           <div
+          <div
             className='w-90 bg-light-red p-2 py-1 text-center br-6 fw-bold p-absolute p-bd-14 '
             onClick={() => setIsModalOpen(true)}
           >
@@ -138,16 +133,11 @@ const ProductItems = (props: any) => {
 
         <div className='px-3'>
           <div className='  fs-18 fw-bold'>{item.productName}</div>
-          <p className='lh-20 fs-14 tc-grey my-0'>{item.productDiscription ? item.productDiscription.slice(0, 55) : ""} ...<span className='fw-bold'>more</span></p>
-          {/* <div className=' justify-content-between'> */}
-            {/* <div className=''> */}
-              {/* <p className='m-0'><span className='fs-14 fw-bold'>Categery: </span> {item.category}</p> */}
-              {/* <p className='m-0'><span className='fw-bold'>Type: </span> {item.productType}</p> */}
-              <p className='my-1'><span className='fw-bold'>Amount: </span> {item.amount} Rs.</p>
-              {/* <Rate allowHalf defaultValue={3.5} /> */}
-            {/* </div> */}
-          {/* </div> */}
-         
+          <p className='lh-20 fs-14 tc-grey my-0'>
+            {item.productDiscription ? item.productDiscription.slice(0, 55) : ""} ...
+            <span className='fw-bold'>more</span>
+          </p>
+          <p className='my-1'><span className='fw-bold'>Amount: </span> {item.amount} Rs.</p>
         </div>
       </div>
 
@@ -158,6 +148,9 @@ const ProductItems = (props: any) => {
         handleOk={handleOk}
         handleCancel={handleCancel}
       // productName={item.productName}
+      />
+      <ItemDetails 
+
       />
     </>
   )

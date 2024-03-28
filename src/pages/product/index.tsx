@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { FloatButton, Input } from 'antd';
-
-import ProductItems from '@/containers/ProductItems/ProductItems';
-import FilterMenu from '@/containers/Modal/FilterMenu';
+import { Input } from 'antd';
 
 import PaginationComponent from '@/component/pagination/pagination';
 
-import { ICGiNotebook, ICFaFilter } from '@/utils/icons';
+import ProductItems from '@/containers/ProductItems/ProductItems';
+import FilterMenu from '@/containers/Modal/FilterMenu';
 import ViewCartList from '@/containers/Modal/ViewCartList';
+
+import { ICGiNotebook, ICFaFilter, ICFaSearch } from '@/utils/icons';
 
 const TAG = "Product Page: ";
 const Product = () => {
@@ -144,17 +143,24 @@ const Product = () => {
   ];
 
   useEffect(() => {
+    const dataFromLocalStorage = localStorage.getItem("cartData");
+    if (dataFromLocalStorage) {
+      const parseData = JSON.parse(dataFromLocalStorage)
+      setViewCart(parseData)
+      console.log(TAG, "getting selected deta in product page ", parseData);
+    }
     setProduct(dummyData);
-  }, [])
+  }, [0]);
 
   // console.log(TAG, "VIEW CART: ", viewCart);
-
-
 
   useEffect(() => {
     console.log(TAG + " product viewcart ", viewCart);
     localStorage.setItem("cartData", JSON.stringify(viewCart));
   }, [viewCart]);
+
+  // console.log(TAG + " viewCart ", viewCart);
+  // console.log(TAG + " product ", product);
 
   return (
     <div>
@@ -163,8 +169,14 @@ const Product = () => {
         <p className='fs-6 m-0 py-2 tc-l-dark'>Powered by TechCo</p>
       </div>
       <div className='d-flex my-1'>
-        <div className='col-lg-10 col-md-10 col-8 '>
-          <Input placeholder="Basic usage" />
+        <div className='col-lg-10 col-md-10 col-8 p-relative'>
+          <input
+            className='w-100 px-2 bdr-w-1 br-solid brc-gray'
+            placeholder="Serch Items"
+          />
+          <span className='p-absolute p-r-10'>
+            <ICFaSearch />
+          </span>
         </div>
         <div className='col-lg-2 col-md-2 col-4 text-center bg-red' onClick={() => setfilterOpen(true)}>
           <span>Filter </span> <ICFaFilter />
@@ -189,8 +201,8 @@ const Product = () => {
                     product={product}
                   />
                 </div>
-              )
-            })}
+              );
+            })};
 
             <PaginationComponent
               total={product.length}
@@ -199,16 +211,9 @@ const Product = () => {
               onChange={callPaginationAction}
               onShowSizeChange={callPaginationAction}
             />
-            <div className='col-2 hemant'>
-              {/* <FloatButton
-                onClick={() => setfilterOpen(true)}
-                // icon={}
-                description='filter'
-                type='default'
-                // className='bg-red'
-              /> */}
-              filter
-            </div>
+
+            {/* <div className='col-2 hemant'>filter</div> */}
+
             {viewCart.length !== 0 ?
               <div
                 className='d-flex justify-content-center'

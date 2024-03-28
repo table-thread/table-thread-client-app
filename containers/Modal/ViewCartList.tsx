@@ -1,31 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Modal } from 'antd';
-import Quantity from '@/component/quantity/Quantity';
 import Link from 'next/link';
-import Item from 'antd/es/list/Item';
 
-const TAG = "VIEW CART ITEMS LIST: ";
+import Quantity from '@/component/quantity/Quantity';
 
+const TAG = "ViewCartList: ";
 const ViewCartList = (props: any) => {
 
   const { viewCartOpen, setViewCartOpen, viewCart, setViewCart } = props;
 
-  const handleCancel = () => {
-    setViewCartOpen(false)
-  }
-
-  const [cartItems, setCartItem] = useState<any[]>([])
+  const [cartItems, setCartItem] = useState<any[]>([]);
 
   useEffect(() => {
+    setCartItem(viewCart);
+  }, [viewCart]);
 
-    setCartItem(viewCart)
-    console.log(TAG, ' viewcartttttt ', viewCart);
 
-  }, [viewCart])
+  const handleCancel = () => {
+    setViewCartOpen(false);
+  }
+
 
   function quantityOp(calledWith: any, itemId: any, index: any) {
     if (calledWith == 0) {
-
       const search = cartItems.findIndex((element: any) => element.id == itemId);
       // console.log(TAG + " finding ", search);
       if (search !== -1) {
@@ -68,47 +65,69 @@ const ViewCartList = (props: any) => {
     };
   };
 
+
+  // console.log(TAG + ' cart item ', viewCart);
+
   return (
-    <Modal open={viewCartOpen} onOk={handleCancel} onCancel={handleCancel} footer={[]}>
-      <div className='d-flex justify-content-center'>
-        <div className='col-12 mt-5 p-0'>
-          <div className='row border-bottom'>
-            <div className='col-3 fw-bold'>Product</div>
-            <div className='col-3 fw-bold'>Varient</div>
-            <div className='col-3 fw-bold'>Quantity</div>
-            <div className='col-3 fw-bold'>price</div>
-          </div>
+    <Modal
+      open={viewCartOpen}
+      onOk={handleCancel}
+      onCancel={handleCancel}
+      footer={[]}
+    >
+      <div className=''>
 
-          {cartItems.length > 0 && cartItems.map((item: any, index: number) => (
+        <div className='table-responsive'>
+          <table className='table table-bordered'>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Varient</th>
+                <th>Quantity</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
 
-            (item.varients).map((element: any, idx: number) => {
-              return (
-                <div key={idx} id={item.id} className='row my-2'>
-                  <div className='col-3'>{item.item}</div>
-                  <div className='col-3'>{element.variant}</div>
+              {cartItems.length !== 0 ?
+                (
+                  cartItems.map((item: any, index: number) => {
+                    return (
+                      <Fragment key={index}>
+                        {item.varients.map((varItem: any, indexSec: number) => {
+                          console.log("i got the item in cart list", varItem);
+                          return (
+                            <tr key={indexSec} >
+                              <td>{item?.item}</td>
+                              <td>{varItem?.variant}</td>
+                              <td>
+                                <Quantity
+                                  quantity={varItem.quantity}
+                                  setQuantity={(quantity: any) => quantityOp(quantity, item.id, indexSec)}
+                                />
+                              </td>
+                              <td>{varItem?.price * varItem.quantity}</td>
+                            </tr>
+                          )
+                        })}
 
-                  <div className='col-3'>
-                    <Quantity quantity={element.quantity} setQuantity={(quantity: any) => quantityOp(quantity, item.id, idx)} />
-                  </div>
-                  <div className='col-3'>{element.price * element.quantity}</div>
-                </div>
-              )
-
-            })
-
-          )
-          )}
-
-          <div className='br-6 p-2 my-2 mx-4 bg-red text-center'>
-            <Link
-              href="/viewCart"
-            >
-              Proceed to Order
-            </Link>
-          </div>
+                      </Fragment>
+                    );
+                  })
+                )
+                :
+                ""
+              }
+            </tbody>
+          </table>
         </div>
+
+        <button className='btn btn-primary'>
+          <Link href="/viewCart" className='text-light'>Proceed to Order </Link>
+        </button>
+
       </div>
-    </Modal>
+    </Modal >
   )
 }
 

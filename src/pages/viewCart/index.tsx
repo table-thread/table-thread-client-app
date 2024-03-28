@@ -14,10 +14,9 @@ const index = () => {
     if (dataFromLocalStorage) {
       const parseData = JSON.parse(dataFromLocalStorage)
       setCartItem(parseData)
-      console.log(TAG, "getting selected deta ", parseData);
+      // console.log(TAG, "getting selected deta ", parseData);
 
       setTotal(calcuTotal(parseData));
-
     }
   }, [])
 

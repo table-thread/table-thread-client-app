@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Modal } from 'antd';
 
-import InputRadio from '@/component/inputradio/InputRadio';
-import CustomCheckbox from '@/component/checkbox/checkbox';
+// import InputRadio from '@/component/inputradio/InputRadio';
+// import CustomCheckbox from '@/component/checkbox/checkbox';
 import SimpleRadio from '@/component/inputsimpleradio/simpleRadio';
 
 
@@ -14,7 +14,7 @@ const FilterMenu = (props: any) => {
   const [catogory, setCatogory] = useState<any>('select All');
 
 
-  const filterTitles = ['select All', "fast food", "drink", "noodles", "breakfast", "lunch", "dinner"];
+  const filterTitles = ['select All', "Fast food", "Drink", "Noodles", "Breakfast", "Lunch", "Dinner"];
 
   const handleOk = () => {
     if (catogory !== 'select All') {
@@ -37,16 +37,16 @@ const FilterMenu = (props: any) => {
     setfilterOpen(false);
   };
 
-  // console.log(TAG, ' filterpage viewcart', viewCart);
-  // console.log(TAG, ' catogory', catogory);
-  // console.log(TAG, ' dummyData', dummyData);
-
   return (
-    <Modal  open={filterOpen} onOk={handleOk} onCancel={handleCancel}>
+    <Modal open={filterOpen} onOk={handleOk} onCancel={handleCancel}>
       <div className="fw-bold fs-18 text-center my-1 ff-r">Filter</div>
       {filterTitles.map((item: any, index: number) => {
         return (
-          <div className='d-flex justify-content-between my-2 px-2 ff-r' key={index}>
+          <div
+            className='d-flex justify-content-between my-2 px-2 ff-r'
+            key={index}
+            onClick={() => setCatogory(item)}
+          >
             <div className='col-5'>{item}</div>
             {/* <div className='col-3'>{dummyData.length}</div> */}
             <SimpleRadio
