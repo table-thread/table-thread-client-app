@@ -93,38 +93,51 @@ const index = () => {
   return (
     <div className='d-flex justify-content-center'>
       <div className='col-md-5 col-sm-12 col-12 bdr-w-1 br-6 br-solid brc-gray m-4 p-4'>
-        <div className='row'>
-          <div className='col-3 fw-bold'>Product</div>
-          <div className='col-3 fw-bold'>Varient</div>
-          <div className='col-3 fw-bold'>Quantity</div>
-          <div className='col-3 fw-bold'>price</div>
+        <div className='table-responsive'>
+          <table className='table table-striped'>
+            <thead className=''>
+              <tr>
+                <th>Product</th>
+                <th>Varient</th>
+                <th>Quantity</th>
+                <th>price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems.length > 0 && cartItems.map((item: any, index: number) => (
+
+                (item.varients).map((element: any, idx: number) => {
+                  // console.log('testinggggggggg', element);
+                  return (
+                    <tr key={idx} id={item.id} className=''>
+                      <td className='col-3'>{item.item}</td>
+                      <td className='col-3'>{element.variant}</td>
+
+                      <td className='col-3'>
+                        <Quantity quantity={element.quantity} setQuantity={(quantity: any) => quantityOp(quantity, item.id, idx)} />
+                      </td>
+                      <td className='col-3'>{element.price * element.quantity}</td>
+                    </tr>
+                  )
+
+                })
+              )
+              )}
+            </tbody>
+            <thead>
+              <tr className=''>
+                <th className=''>Total</th>
+                <th></th>
+                <th></th>
+                <th className=''>{total}</th>
+              </tr>
+            </thead>
+          </table>
         </div>
 
-        {cartItems.length > 0 && cartItems.map((item: any, index: number) => (
-
-          (item.varients).map((element: any, idx: number) => {
-            // console.log('testinggggggggg', element);
-            return (
-              <div key={idx} id={item.id} className='row my-2'>
-                <div className='col-3'>{item.item}</div>
-                <div className='col-3'>{element.variant}</div>
-
-                <div className='col-3'>
-                  <Quantity quantity={element.quantity} setQuantity={(quantity: any) => quantityOp(quantity, item.id, idx)} />
-                </div>
-                <div className='col-3'>{element.price * element.quantity}</div>
-              </div>
-            )
-
-          })
-        )
-        )}
-
-        <div className='row justify-content-between border-top mb-3'>
-          <div className='col-6 fw-bold'>Total</div>
-          <div className='col-3 fw-bold'>{total}</div>
+        <div className='d-flex justify-content-center mb-3'>
+          <button className='btn btn-danger px-5' onClick={orderitems}>Proceed to Order </button>
         </div>
-        <div className='br-6 p-2 bg-red text-center' onClick={orderitems}>Proceed to Order </div>
       </div>
     </div>
   )

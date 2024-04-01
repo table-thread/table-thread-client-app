@@ -95,7 +95,7 @@ const ViewCartList = (props: any) => {
                     return (
                       <Fragment key={index}>
                         {item.varients.map((varItem: any, indexSec: number) => {
-                          console.log("i got the item in cart list", varItem);
+                          // console.log("i got the item in cart list", varItem);
                           return (
                             <tr key={indexSec} >
                               <td>{item?.item}</td>
@@ -125,6 +125,7 @@ const ViewCartList = (props: any) => {
         <button className='btn btn-primary'>
           <Link href="/viewCart" className='text-light'>Proceed to Order </Link>
         </button>
+        <button className=' mx-2 btn btn-primary' onClick={()=>setViewCart([])}>Clear Items</button>
 
       </div>
     </Modal >

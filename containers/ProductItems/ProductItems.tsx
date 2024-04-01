@@ -3,7 +3,7 @@ import { Rate } from 'antd';
 
 import AddItem from '../Modal/AddItem';
 
-import Quantity from '@/component/quantity/Quantity';
+// import Quantity from '@/component/quantity/Quantity';
 import ItemDetails from '../Modal/itemDetails';
 
 const TAG = "Product Item Page: ";
@@ -13,7 +13,6 @@ const ProductItems = (props: any) => {
 
   const [isModalOpen, setIsModalOpen] = useState<any>(false);
   const [selectedItem, setSelectedItem] = useState<any>(null);
-  // const [quantity, setQuantity] = useState<any>(null);
   const [variants, setvariants] = useState<any[]>([]);
 
   useEffect(() => {
@@ -32,37 +31,9 @@ const ProductItems = (props: any) => {
     setIsModalOpen(false);
   };
 
-  // function quantityOp(calledWith: any) {
-  //   if (calledWith == 0) {
-  //     setSelectedItem(null);
-
-  //     const search = viewCart.findIndex((element: any) => element.id == idx);
-  //     if (search !== -1) {
-  //       const tempObj = [...viewCart];
-  //       const searchRs = tempObj.findIndex((element: any) => element.id == idx);
-  //       tempObj.splice(searchRs, 1);
-  //       setViewCart(tempObj);
-  //     }
-
-  //   } else {
-  //     const search = viewCart.findIndex((element: any) => element.id == idx);
-  //     if (search !== -1) {
-  //       const tempObj = [...viewCart];
-  //       const searchObj = viewCart.find((element: any) => element.id == idx);
-  //       const searchRs = tempObj.findIndex((element: any) => element.id == idx);
-  //       const varObj = [...searchObj.varients]
-  //       searchObj.quantity = varObj.length;
-  //       tempObj[searchRs] = searchObj;
-  //       setViewCart(tempObj);
-  //     }
-
-  //   }
-  // }
-
   const handleOk = (calledWith: any, varientPrice: number) => {
     // console.log(TAG + " selected varient of item ", calledWith);
     setIsModalOpen(false);
-    // setQuantity(1);
     setSelectedItem(item.id)
 
     const selectVariant = {
@@ -72,8 +43,6 @@ const ProductItems = (props: any) => {
     };
 
     handleSelectedItem(calledWith, selectVariant);
-
-
   };
 
   const handleSelectedItem = (calledWith: any, selectVariant: object) => {
@@ -81,7 +50,6 @@ const ProductItems = (props: any) => {
       id: idx,
       item: item.productName,
       varients: [selectVariant],
-      // quantity: 1,
     };
     if (viewCart.length !== 0) {
       const search = viewCart.findIndex((element: any) => element.id == idx);
@@ -149,9 +117,7 @@ const ProductItems = (props: any) => {
         handleCancel={handleCancel}
       // productName={item.productName}
       />
-      <ItemDetails 
-
-      />
+      <ItemDetails />
     </>
   )
 }
